@@ -8,8 +8,7 @@
 # Set paths
 #------------------------------------------------------------------------------------------
 
-#setwd("F:/DSBG/Justin Carrard/SphingoFIT")
-setwd("/Volumes/nuxyde32/Uni-Basel/DSBG/Forschung/SphingoHIIT/Sample size/SphingoHIIT_2") # Main path MacBook Pro
+setwd(" ") # Main path
 
 dat_path <- "./data"
 graphics_path <- "./output/graphics"

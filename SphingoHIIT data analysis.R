@@ -384,7 +384,7 @@ for(i in seq_along(variables_to_plot)) {
       #trans = "log2"
       ) +
     scale_x_discrete(labels = time_point_labels) +
-    #ylab(paste0("Normalised concentration")) +
+    #ylab(paste0("Molar fraction [unitless]")) +
     #ylab(paste0("Concentration [nM]")) +
     ylab(paste0("Ratio")) +
     xlab(paste0("Time points")) +
@@ -571,9 +571,9 @@ p <-
   geom_errorbarh(aes(xmin = LowerCI, xmax = UpperCI), height = 0.4) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
   labs(
-    title = "Effect of a single HIIT session on different sphingolipids at different time points",
-    x = "β coefficient and 95% confidence intervals",
-    y = "Sphingolipids and compared time points"
+    title = "Effect of a single HIIT session (vs. physical rest) on sphingolipid species at different time points post-intervention",
+    x = "Estimate and 95% confidence intervals",
+    y = "Sphingolipids at post-intervention time points vs. baseline"
   ) +
   theme_bw() +
   theme(
@@ -590,7 +590,7 @@ dev.off()
 #rename columns
 names(results_df)[1] <- "Sphingolipid"
 names(results_df)[2] <- "Contrast"
-names(results_df)[3] <- "β coefficient"
+names(results_df)[3] <- "Estimate"
 names(results_df)[4] <- "Standard error"
 names(results_df)[5] <- "95% CI lower bound for β coefficient"
 names(results_df)[6] <- "95% CI higher bound for β coefficient"

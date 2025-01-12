@@ -1,6 +1,6 @@
 #===============================================================================
 # The SphingoHIIT study: linear mixed model
-# Author: Nadia Weber, Seraina Fische, Justin Carrard, & Denis Infanger
+# Author: Nadia Weber, Seraina Fischer, Justin Carrard, & Denis Infanger
 #===============================================================================
 
 #-------------------------------------------------------------------------------
@@ -542,11 +542,11 @@ head(results_df)
 
 # Rename the contrasts analysed with more descriptive labels
 contrast_labels <- c(
-  "int4 - int0" = "2min post-intervention vs. baseline",
-  "int5 - int0" = "15min post-intervention vs. baseline",
-  "int6 - int0" = "30min post-intervention vs. baseline",
-  "int7 - int0" = "60min post-intervention vs. baseline",
-  "int8 - int0" = "24h post-intervention vs. baseline"
+  "int4 - int0" = "2min post-intervention",
+  "int5 - int0" = "15min post-intervention",
+  "int6 - int0" = "30min post-intervention",
+  "int7 - int0" = "60min post-intervention",
+  "int8 - int0" = "24h post-intervention"
 )
 
 # Replace the values in results_df$Contrast with the descriptive labels
@@ -571,9 +571,9 @@ p <-
   geom_errorbarh(aes(xmin = LowerCI, xmax = UpperCI), height = 0.4) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "red") +
   labs(
-    title = "Effect of a single HIIT session (vs. physical rest) on sphingolipid species at different time points post-intervention",
+    title = "Effect of a single HIIT session (vs. physical rest) on sphingolipid species at different post-intervention time points",
     x = "Estimate and 95% confidence intervals",
-    y = "Sphingolipids at post-intervention time points vs. baseline"
+    y = "Sphingolipid species at different post-intervention time points"
   ) +
   theme_bw() +
   theme(

@@ -380,6 +380,8 @@ for(i in seq_along(variables_to_plot)) {
     geom_vline(xintercept = 3.5, linewidth = 0.5) +
     stat_summary(aes(group = NULL), fun = "mean", geom = "point", pch = 15, size = 4) +
     stat_summary(aes(group = Group), fun = "mean", geom = "line", linewidth = 1, linetype = 2) +
+    stat_summary(aes(group = Group), fun = "quantile", fun.args = list(probs = 0.25, na.rm = TRUE), geom = "line", linewidth = 1, linetype = 2) +
+    stat_summary(aes(group = Group), fun = "quantile", fun.args = list(probs = 0.75, na.rm = TRUE), geom = "line", linewidth = 1, linetype = 2) +
     scale_y_continuous(
       #trans = "log2"
       ) +
@@ -432,6 +434,8 @@ for (i in outcome_variables) {
   
   model_fit <- with(dat_imp, lmer(format(form), REML = FALSE))
   
+  icc <- mitml::testEstimates(as.mitml.result(model_fit), df.com = summary(model_fit$analyses[[1]])$AICtab[["df.resid"]], extra.pars = TRUE)$extra.pars["ICC|ID", ]
+
   model_fit.emm <- emmeans(model_fit, "int")
   
   contrasts_summary <- as.data.frame(summary(emmeans::contrast(model_fit.emm, "trt.vs.ctrl"), by = NULL, adjust = "mvt", infer = c(TRUE, TRUE)))
@@ -447,7 +451,8 @@ for (i in outcome_variables) {
       UpperCI = contrasts_summary[j, "upper.CL"],
       DF = contrasts_summary[j, "df"],
       TValue = contrasts_summary[j, "t.ratio"],
-      PValue = contrasts_summary[j, "p.value"]
+      PValue = contrasts_summary[j, "p.value"],
+      ICC = icc
       )
 
     # Append this iteration's results to the results data frame
@@ -597,8 +602,9 @@ names(results_df)[6] <- "95% CI higher bound for β coefficient"
 names(results_df)[7] <- "Degrees of Freedom"
 names(results_df)[8] <- "t-values"
 names(results_df)[9] <- "p-values"
-names(results_df)[10] <- "BH p-values"
-names(results_df)[11] <- "Categorical BH p-value"
+names(results_df)[10] <- "Intraclass correlation coefficient"
+names(results_df)[11] <- "BH p-values"
+names(results_df)[12] <- "Categorical BH p-value"
 
 #-------------------------------------------------------------------------------
 # Export results as xlsx
